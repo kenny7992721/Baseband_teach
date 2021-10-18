@@ -1,0 +1,60 @@
+[Version]
+Signature="$Windows NT$"
+Class=%StrClass%
+ClassGuid={EF1317D3-39A5-4d63-92F1-2EC7B79973B2}
+Provider=%StrProvider%
+DriverVer=07/09/2009,3.00.0.0
+
+[Manufacturer]
+%StrProvider%=SMIMS
+
+[SMIMS]
+%USB\VID_2200&PID_2010.DeviceDesc%=SMIMS_DEV, USB\VID_2200&PID_2010
+
+[ClassInstall32]
+Addreg=AIMClass.AddRegNT
+
+[PreCopySection]
+HKR,,NoSetupUI,,1
+
+[DestinationDirs]
+SMIMS_DEV.Files.Ext = 10,system32\drivers
+SMIMS_DEV.Files.Inf = 10,INF
+
+[SMIMS_DEV]
+CopyFiles=SMIMS_DEV.Files.Ext
+AddReg=SMIMS_DEV.AddReg
+
+[SMIMS_DEV.NT]
+CopyFiles=SMIMS_DEV.Files.Ext
+AddReg=SMIMS_DEV.AddReg
+
+[SMIMS_DEV.NT.Services]
+Addservice = SMIMS_DEV, 0x00000002, SMIMS_DEV.AddService
+
+[SMIMS_DEV.AddService]
+DisplayName    = %SMIMS_DEV.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 2                  ; SERVICE_AUTO_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\system32\drivers\SMIMS_V3.sys
+LoadOrderGroup = Base
+
+[SMIMS_DEV.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,SMIMS_V3.sys
+
+[SMIMS_DEV.Files.Ext]
+SMIMS_V3.sys
+
+[SMIMS_DEV.Files.Inf]
+SMIMS_V3.inf
+
+;---------------------------------------------------------------;
+
+[Strings]
+StrClass="SMIMS"
+StrProvider="SMIMS Corp."
+StrDevice="SMIMS_DEV"
+USB\VID_2200&PID_2010.DeviceDesc="SMIMS V3"
+SMIMS_DEV.SvcDesc="SMIMS V3"

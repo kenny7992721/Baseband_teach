@@ -1,0 +1,98 @@
+ 
+[Version] 
+Signature = "$Windows NT$" 
+Class=SMIMS
+ClassGUID={36fc9e60-c465-11cf-8056-444553540000} 
+Provider=%SMIMS% 
+;CatalogFile.ntx86=SMIMS_32.cat
+;CatalogFile.ntia64=SMIMS_64.cat
+CatalogFile=ezusbx64.cat
+DriverVer  = 01/20/2010,1.0.0.1
+
+[Manufacturer] 
+%SMIMS%=SMIMS,NTia64, NTamd64
+
+[SMIMS]
+%USB\VID_2200&PID_2010.DeviceDesc%=SMIMS_V3,USB\VID_2200&PID_2010
+
+[SMIMS.NTia64]
+%USB\VID_2200&PID_2010.DeviceDesc%=SMIMS_V3.NTia64,USB\VID_2200&PID_2010
+
+[SMIMS.NTamd64]
+%USB\VID_2200&PID_2010.DeviceDesc%=SMIMS_V3.NTamd64,USB\VID_2200&PID_2010
+
+[SMIMS_V3]
+AddReg=SMIMS_V3.AddReg
+CopyFiles=SMIMS_V3.CopyList.98	
+
+[SMIMS_V3.NT]
+AddReg=SMIMS_V3.AddReg
+CopyFiles=SMIMS_V3.CopyList    
+
+[SMIMS_V3.NTia64]
+AddReg=SMIMS_V3.AddReg64
+CopyFiles=SMIMS_V3.CopyList64
+
+[SMIMS_V3.NTamd64]
+AddReg=SMIMS_V3.AddReg64
+CopyFiles=SMIMS_V3.CopyList64
+
+[SMIMS_V3.CopyList.98]
+SMIMS_V3.sys,,,2
+
+[SMIMS_V3.CopyList]
+SMIMS_V3.sys,,,2
+
+[SMIMS_V3.CopyList64]
+SMIMS_V3.sys,,,2
+
+[SMIMS_V3.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,SMIMS_V3.sys
+
+[SMIMS_V3.AddReg64]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,SMIMS_V3.sys
+
+[SMIMS_V3.NT.Services]
+Addservice = SMIMS_V3, 0x00000002, SMIMS_V3.AddService
+
+[SMIMS_V3.NTia64.Services]
+Addservice = SMIMS_V3, 0x00000002, SMIMS_V3.AddService64
+
+[SMIMS_V3.NTamd64.Services]
+Addservice = SMIMS_V3, 0x00000002, SMIMS_V3.AddService64
+
+[SMIMS_V3.AddService]
+DisplayName    = %USB\VID_2200&PID_2010.DeviceDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\SMIMS_V3.sys
+
+[SMIMS_V3.AddService64]
+DisplayName    = %USB\VID_2200&PID_2010.DeviceDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\SMIMS_V3.sys
+
+
+[DestinationDirs]
+SMIMS_V3.CopyList.98 = 10,System32\Drivers  
+SMIMS_V3.CopyList = 12  
+SMIMS_V3.CopyList64 = 12  
+DefaultDestDir = 12    
+    
+[SourceDisksNames] 
+1 = %DiskName%,,,
+
+[SourceDisksFiles]
+SMIMS_V3.sys=1
+
+[Strings]
+DiskName		= "SMIMS_V3 install disk"
+SMIMS="SMIMS Corp."
+USB\VID_2200&PID_2010.DeviceDesc="SMIMS DEV"
+ClassName="SMIMS"
+
